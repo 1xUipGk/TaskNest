@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskNest - Organize Your Day</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <img src="assets/images/logo.png" alt="TaskNest Logo">
+                <span>TaskNest</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How it Works</a>
+                <a href="#pricing">Pricing</a>
+                <div class="auth-buttons">
+                    <a href="auth/login.html" class="login-btn">Login</a>
+                    <a href="auth/signup.html" class="signup-btn">Sign Up</a>
+                </div>
+            </div>
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Organize Your Tasks,<br>Simplify Your Life</h1>
+                <p>TaskNest helps you manage your daily tasks efficiently with smart reminders and easy organization.</p>
+                <div class="cta-buttons">
+                    <a href="auth/signup.html" class="primary-btn">Get Started - It's Free</a>
+                    <a href="#features" class="secondary-btn">Learn More</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="assets/images/hero-image.png" alt="TaskNest Dashboard Preview">
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <h2>Why Choose TaskNest?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Simple Task Management</h3>
+                    <p>Create, organize, and complete tasks with just a few clicks</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-bell"></i>
+                    <h3>Smart Reminders</h3>
+                    <p>Never miss important tasks with customizable notifications</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Calendar Integration</h3>
+                    <p>Sync your tasks with Google Calendar seamlessly</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Mobile Friendly</h3>
+                    <p>Access your tasks from any device, anywhere</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="how-it-works">
+            <h2>How TaskNest Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Sign Up</h3>
+                    <p>Create your free account in seconds</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Add Tasks</h3>
+                    <p>Create and organize your tasks easily</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Stay Organized</h3>
+                    <p>Complete tasks and track your progress</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="pricing">
+            <h2>Simple Pricing</h2>
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <h3>Free</h3>
+                    <div class="price">$0</div>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Unlimited Tasks</li>
+                        <li><i class="fas fa-check"></i> Basic Reminders</li>
+                        <li><i class="fas fa-check"></i> Mobile Access</li>
+                    </ul>
+                    <a href="auth/signup.html" class="pricing-btn">Get Started</a>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="featured-label">Popular</div>
+                    <h3>Pro</h3>
+                    <div class="price">$5<span>/month</span></div>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Everything in Free</li>
+                        <li><i class="fas fa-check"></i> Advanced Analytics</li>
+                        <li><i class="fas fa-check"></i> Priority Support</li>
+                        <li><i class="fas fa-check"></i> Calendar Integration</li>
+                    </ul>
+                    <a href="auth/signup.html" class="pricing-btn">Try Pro Free</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>TaskNest</h4>
+                <p>Simplify your life with smart task management</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#how-it-works">How it Works</a>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 TaskNest. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- تحديث السكربتات -->
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html> 
