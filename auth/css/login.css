@@ -12,7 +12,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', 'Vazirmatn', sans-serif;
 }
 
 body {
@@ -29,7 +29,7 @@ body {
     padding: 20px;
 }
 
-.signup-container {
+.login-container {
     background: white;
     padding: 2rem;
     border-radius: 12px;
@@ -39,6 +39,10 @@ body {
 .logo {
     text-align: center;
     margin-bottom: 2rem;
+}
+
+.logo img {
+    display: none;
 }
 
 .logo h1 {
@@ -53,7 +57,7 @@ body {
     margin-bottom: 1.5rem;
 }
 
-.input-group i {
+.input-group i:not(.toggle-password) {
     position: absolute;
     left: 12px;
     top: 50%;
@@ -80,13 +84,35 @@ body {
 }
 
 .toggle-password {
+    position: absolute;
     right: 12px;
-    left: auto !important;
+    top: 50%;
+    transform: translateY(-50%);
     cursor: pointer;
+    color: var(--border-color);
     font-size: 16px;
 }
 
-.signup-btn {
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-color);
+}
+
+.forgot-password {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.login-btn {
     width: 100%;
     height: 44px;
     background-color: var(--primary-color);
@@ -103,7 +129,7 @@ body {
     padding: 0;
 }
 
-.signup-btn:hover {
+.login-btn:hover {
     background-color: #1557b0;
 }
 
@@ -157,26 +183,17 @@ body {
     background-color: #f8f9fa;
 }
 
-.login-link {
+.signup-link {
     text-align: center;
     margin-top: 1.5rem;
     color: var(--text-color);
     font-weight: 400;
 }
 
-.login-link a {
+.signup-link a {
     color: var(--primary-color);
     text-decoration: none;
     font-weight: 600;
-}
-
-.password-hint {
-    color: var(--error-color);
-    font-size: 0.8rem;
-    margin-top: -8px;
-    margin-bottom: 16px;
-    margin-left: 12px;
-    animation: fadeIn 0.2s ease;
 }
 
 .error-message {
@@ -218,6 +235,15 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
     right: 0;
 }
 
+/* إضافة نمط لرسالة المساعدة */
+.password-hint {
+    color: var(--error-color);
+    font-size: 0.8rem;
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+    animation: fadeIn 0.3s ease;
+}
+
 /* تحديث نمط input عند عدم تحقق الشروط */
 .input-group input:not(:placeholder-shown):invalid {
     border-color: var(--error-color);
@@ -248,4 +274,15 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 
 .input-error:focus {
     border-color: var(--error-color) !important;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
