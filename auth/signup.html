@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskNest - Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/signup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="signup-container">
+            <div class="logo">
+                <h1>TaskNest</h1>
+            </div>
+            
+            <form id="signupForm" class="signup-form">
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Email" required>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Password" minlength="8" required>
+                    <i class="fas fa-eye-slash toggle-password"></i>
+                </div>
+                <div class="password-hint" style="display: none;">Password must be at least 8 characters</div>
+
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                    <i class="fas fa-eye-slash toggle-password"></i>
+                </div>
+
+                <button type="submit" class="signup-btn">Sign Up</button>
+                
+                <div class="divider">
+                    <span>or</span>
+                </div>
+
+                <button type="button" class="google-btn">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Icon">
+                    Continue with Google
+                </button>
+            </form>
+
+            <p class="login-link">
+                Already have an account? <a href="login.html">Login</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- تحديث السكربتات -->
+    <script type="module" src="../firebase-config.js"></script>
+    <script type="module" src="js/signup.js"></script>
+</body>
+</html> 
