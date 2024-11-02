@@ -1,3 +1,10 @@
+import { auth } from '../../firebase-config.js';
+import { 
+    signInWithEmailAndPassword, 
+    GoogleAuthProvider, 
+    signInWithPopup 
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
 document.addEventListener('DOMContentLoaded', () => {
     // Form elements
     const loginForm = document.getElementById('loginForm');
@@ -61,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         try {
-            await firebase.auth().signInWithEmailAndPassword(emailInput.value, passwordInput.value);
+            await signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
             window.location.href = '../dashboard.html';
         } catch (error) {
             handleFirebaseError(error);
@@ -71,8 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Google Sign In
     googleBtn.addEventListener('click', async () => {
         try {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            await firebase.auth().signInWithPopup(provider);
+            const provider = new GoogleAuthProvider();
+            await signInWithPopup(auth, provider);
             window.location.href = '../dashboard.html';
         } catch (error) {
             handleFirebaseError(error);
