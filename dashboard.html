@@ -49,6 +49,10 @@
                 <input type="text" placeholder="Search tasks...">
             </div>
             <div class="top-bar-actions">
+                <button class="focus-mode-btn" title="Focus Mode">
+                    <i class="fas fa-focus"></i>
+                    Focus Mode
+                </button>
                 <button class="notification-btn">
                     <i class="fas fa-bell"></i>
                     <span class="notification-badge">3</span>
@@ -99,7 +103,15 @@
             <div class="tasks-section">
                 <div class="section-header">
                     <h3>Today's Tasks</h3>
-                    <button class="view-all-btn">View All</button>
+                    <div class="task-filters">
+                        <select id="priorityFilter">
+                            <option value="all">All Priorities</option>
+                            <option value="high">High Priority</option>
+                            <option value="medium">Medium Priority</option>
+                            <option value="low">Low Priority</option>
+                        </select>
+                        <button class="view-all-btn">View All</button>
+                    </div>
                 </div>
                 <div class="tasks-list">
                     <!-- Tasks will be dynamically added here -->

@@ -1,1 +1,64 @@
- 
+/* Focus Mode Button */
+.focus-mode-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.focus-mode-btn:hover {
+    background-color: #1557b0;
+}
+
+.focus-mode-btn.active {
+    background-color: #dc3545;
+}
+
+/* Task Filters */
+.task-filters {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+#priorityFilter {
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: white;
+    font-size: 0.9rem;
+}
+
+/* Priority Indicators */
+.task-item {
+    border-left: 4px solid transparent;
+}
+
+.task-item.high-priority {
+    border-left-color: #dc3545;
+}
+
+.task-item.medium-priority {
+    border-left-color: #ffc107;
+}
+
+.task-item.low-priority {
+    border-left-color: #28a745;
+}
+
+/* Focus Mode Styles */
+body.focus-mode .task-item:not(.high-priority) {
+    opacity: 0.5;
+    filter: grayscale(50%);
+}
+
+body.focus-mode .sidebar,
+body.focus-mode .top-bar {
+    opacity: 0.7;
+} 
