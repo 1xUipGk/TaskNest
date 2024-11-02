@@ -7,32 +7,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const googleBtn = document.querySelector('.google-btn');
     const passwordHint = document.querySelector('.password-hint');
 
-// Password validation
-passwordInput.addEventListener('input', () => {
-    if (passwordInput.value.length > 0) {
-        passwordHint.style.display = 'block';
-        if (passwordInput.value.length < 8) {
-            passwordHint.style.color = 'var(--error-color)';
-            passwordInput.classList.add('input-error');
+    // Password validation
+    passwordInput.addEventListener('input', () => {
+        if (passwordInput.value.length > 0) {
+            passwordHint.style.display = 'block';
+            if (passwordInput.value.length < 8) {
+                passwordHint.style.color = 'var(--error-color)';
+                passwordInput.classList.add('input-error');
+            } else {
+                passwordHint.style.display = 'none';
+                passwordInput.classList.remove('input-error');
+            }
         } else {
             passwordHint.style.display = 'none';
             passwordInput.classList.remove('input-error');
         }
-    } else {
-        passwordHint.style.display = 'none';
-        passwordInput.classList.remove('input-error');
-    }
-});
+    });
 
-// Toggle password visibility
-togglePasswordBtn.addEventListener('click', () => {
-    const input = passwordInput;
-    const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
-    input.setAttribute('type', type);
-    togglePasswordBtn.classList.toggle('fa-eye');
-    togglePasswordBtn.classList.toggle('fa-eye-slash');
-});
-
+    // Toggle password visibility
+    togglePasswordBtn.addEventListener('click', () => {
+        const input = togglePasswordBtn.previousElementSibling;
+        const type = input.type === 'password' ? 'text' : 'password';
+        input.type = type;
+        togglePasswordBtn.classList.toggle('fa-eye');
+        togglePasswordBtn.classList.toggle('fa-eye-slash');
+    });
 
     // Email validation
     emailInput.addEventListener('input', () => {
@@ -78,15 +77,6 @@ togglePasswordBtn.addEventListener('click', () => {
         } catch (error) {
             handleFirebaseError(error);
         }
-    });
-
-    // Toggle password visibility
-    togglePasswordBtn.addEventListener('click', () => {
-        const input = passwordInput;
-        const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
-        input.setAttribute('type', type);
-        togglePasswordBtn.classList.toggle('fa-eye');
-        togglePasswordBtn.classList.toggle('fa-eye-slash');
     });
 
     // Helper functions
