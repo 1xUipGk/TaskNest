@@ -1,3 +1,13 @@
+import { auth, db } from '../firebase-config.js';
+import { 
+    ref, 
+    set, 
+    push, 
+    onValue, 
+    remove, 
+    update 
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
 // Focus Mode Toggle
 const focusModeBtn = document.querySelector('.focus-mode-btn');
 focusModeBtn.addEventListener('click', () => {
@@ -293,4 +303,176 @@ function updateAnalytics() {
 document.addEventListener('DOMContentLoaded', () => {
     initializeAnalytics();
     updateAnalytics();
-}); 
+});
+
+// Task Management Functions
+function addTaskToDatabase(taskData) {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const tasksRef = ref(db, `users/${user.uid}/tasks`);
+    const newTaskRef = push(tasksRef);
+    
+    return set(newTaskRef, {
+        ...taskData,
+        id: newTaskRef.key,
+        createdAt: new Date().toISOString(),
+        completed: false
+    });
+}
+
+function loadTasks() {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const tasksRef = ref(db, `users/${user.uid}/tasks`);
+    onValue(tasksRef, (snapshot) => {
+        const tasksList = document.querySelector('.tasks-list');
+        tasksList.innerHTML = '';
+        
+        const tasks = snapshot.val();
+        if (tasks) {
+            Object.values(tasks).forEach(task => {
+                createTaskElement(task);
+            });
+        }
+        updateTaskStats();
+    });
+}
+
+function deleteTask(taskId) {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const taskRef = ref(db, `users/${user.uid}/tasks/${taskId}`);
+    return remove(taskRef);
+}
+
+function toggleTaskComplete(taskId, completed) {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const taskRef = ref(db, `users/${user.uid}/tasks/${taskId}`);
+    return update(taskRef, { completed });
+}
+
+function updateTask(taskId, updatedData) {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const taskRef = ref(db, `users/${user.uid}/tasks/${taskId}`);
+    return update(taskRef, updatedData);
+}
+
+// UI Functions
+function createTaskElement(taskData) {
+    const taskElement = document.createElement('div');
+    taskElement.className = `task-item ${taskData.priority}-priority`;
+    taskElement.setAttribute('data-id', taskData.id);
+    taskElement.setAttribute('data-priority', taskData.priority);
+    taskElement.setAttribute('data-category', taskData.category);
+    taskElement.setAttribute('data-tags', taskData.tags.join(','));
+    
+    if (taskData.completed) {
+        taskElement.classList.add('completed');
+    }
+    
+    taskElement.innerHTML = `
+        <div class="task-content">
+            <span class="task-category ${taskData.category}">
+                ${taskData.category.charAt(0).toUpperCase() + taskData.category.slice(1)}
+            </span>
+            <h4>${taskData.title}</h4>
+            <p>${taskData.description}</p>
+            <div class="task-meta">
+                <span class="due-date">
+                    <i class="fas fa-clock"></i>
+                    ${formatDate(taskData.dueDate)}
+                </span>
+                <span class="priority-badge ${taskData.priority}">
+                    ${taskData.priority.charAt(0).toUpperCase() + taskData.priority.slice(1)}
+                </span>
+            </div>
+            <div class="task-tags">
+                ${taskData.tags.map(tag => `
+                    <span class="task-tag">${tag}</span>
+                `).join('')}
+            </div>
+        </div>
+        <div class="task-actions">
+            <button class="complete-btn" title="Mark as Complete" onclick="toggleTaskComplete('${taskData.id}', ${!taskData.completed})">
+                <i class="fas ${taskData.completed ? 'fa-undo' : 'fa-check'}"></i>
+            </button>
+            <button class="edit-btn" title="Edit Task" onclick="editTask('${taskData.id}')">
+                <i class="fas fa-edit"></i>
+            </button>
+            <button class="delete-btn" title="Delete Task" onclick="deleteTask('${taskData.id}')">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    `;
+    
+    document.querySelector('.tasks-list').appendChild(taskElement);
+}
+
+function updateTaskStats() {
+    const tasks = document.querySelectorAll('.task-item');
+    const completedTasks = document.querySelectorAll('.task-item.completed');
+    
+    document.querySelector('.stat-number.pending').textContent = tasks.length - completedTasks.length;
+    document.querySelector('.stat-number.completed').textContent = completedTasks.length;
+    document.querySelector('.stat-number.total').textContent = tasks.length;
+}
+
+// Event Listeners
+document.addEventListener('DOMContentLoaded', () => {
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            loadTasks();
+            document.querySelectorAll('.user-name').forEach(el => {
+                el.textContent = user.email;
+            });
+        } else {
+            window.location.href = 'auth/login.html';
+        }
+    });
+
+    // Add Task Form Handler
+    document.getElementById('addTaskForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const taskData = {
+            title: document.getElementById('taskTitle').value,
+            description: document.getElementById('taskDescription').value,
+            dueDate: document.getElementById('taskDueDate').value,
+            priority: document.getElementById('taskPriority').value,
+            category: document.getElementById('taskCategory').value,
+            tags: document.getElementById('taskTags').value
+                .split(',')
+                .map(tag => tag.trim())
+                .filter(tag => tag)
+        };
+
+        try {
+            await addTaskToDatabase(taskData);
+            document.getElementById('addTaskModal').style.display = 'none';
+            document.getElementById('addTaskForm').reset();
+        } catch (error) {
+            console.error('Error adding task:', error);
+            // Show error message to user
+        }
+    });
+
+    // Logout Handler
+    document.querySelector('.logout-btn').addEventListener('click', () => {
+        auth.signOut().then(() => {
+            window.location.href = 'auth/login.html';
+        });
+    });
+});
+
+// Helper Functions
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+} 

@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getDatabase } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -10,11 +11,13 @@ const firebaseConfig = {
     storageBucket: "task-manager-87577.firebasestorage.app",
     messagingSenderId: "949071438979",
     appId: "1:949071438979:web:d2a0056c95b9e02e90e7b6",
-    measurementId: "G-HMZ54Z29EZ"
+    measurementId: "G-HMZ54Z29EZ",
+    databaseURL: "https://task-manager-87577-default-rtdb.firebaseio.com"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getDatabase(app);
 
-export { auth };
+export { auth, db };
